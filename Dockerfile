@@ -1,6 +1,6 @@
 # docker build --rm -f docker/Dockerfile -t drone/drone .
 FROM golang:1.14-alpine3.11 as Build
-ARG DRONE_VERSION=v1.9.0
+ARG DRONE_VERSION=v1.9.2
 RUN apk add --no-cache git build-base
 RUN git clone -b $DRONE_VERSION https://github.com/drone/drone.git /root/drone
 WORKDIR /root/drone
