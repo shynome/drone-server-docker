@@ -1,6 +1,6 @@
 # docker build --rm -f docker/Dockerfile -t drone/drone .
-FROM golang:1.14-alpine3.11 as Build
-ARG DRONE_VERSION=v1.9.2
+FROM golang:1.16-alpine3.14 as Build
+ARG DRONE_VERSION=v2.0.4
 RUN apk add --no-cache git build-base
 RUN git clone -b $DRONE_VERSION https://github.com/drone/drone.git /root/drone
 WORKDIR /root/drone
@@ -9,10 +9,10 @@ RUN cd cmd/drone-server \
     && go build -tags "nolimit" -o drone-server \
     && cp drone-server /tmp/drone-server
 
-FROM alpine:3.11 as SSL
+FROM alpine:3.14 as SSL
 RUN apk add -U --no-cache ca-certificates
 
-FROM alpine:3.11
+FROM alpine:3.14
 EXPOSE 80 443
 VOLUME /data
 
